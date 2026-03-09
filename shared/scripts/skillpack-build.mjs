@@ -95,6 +95,29 @@ function listSkillDirs(skillsRoot) {
   return dirs.filter((d) => fs.existsSync(path.join(d, "SKILL.md")));
 }
 
+const SKILL_PATH_PREFIX = {
+  codex: ".codex/skills",
+  vscode: ".github/skills",
+  claude: ".claude/skills",
+  cursor: ".cursor/skills",
+};
+
+function rewriteSkillPaths(dir, targetPrefix) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (const ent of entries) {
+    const full = path.join(dir, ent.name);
+    if (ent.isDirectory()) {
+      rewriteSkillPaths(full, targetPrefix);
+    } else if (ent.isFile() && ent.name.endsWith(".md")) {
+      const original = fs.readFileSync(full, "utf8");
+      const rewritten = original.replaceAll("skills/", `${targetPrefix}/`);
+      if (rewritten !== original) {
+        fs.writeFileSync(full, rewritten, "utf8");
+      }
+    }
+  }
+}
+
 function buildTarget({ repoRoot, outDir, target, skillDirs }) {
   const rootByTarget = {
     codex: path.join(outDir, "codex", ".codex", "skills"),
@@ -112,6 +135,8 @@ function buildTarget({ repoRoot, outDir, target, skillDirs }) {
     const destSkillDir = path.join(destSkillsRoot, name);
     copyDir({ srcDir: srcSkillDir, destDir: destSkillDir });
   }
+
+  rewriteSkillPaths(destSkillsRoot, SKILL_PATH_PREFIX[target]);
 
   const rel = path.relative(repoRoot, destSkillsRoot);
   process.stdout.write(`OK: built ${target} skillpack at ${rel}\n`);
