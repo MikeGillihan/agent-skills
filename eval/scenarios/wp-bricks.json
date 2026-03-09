@@ -1,0 +1,19 @@
+{
+  "name": "wp-bricks-custom-element-filter",
+  "skills": ["wp-bricks"],
+  "query": "I have a Bricks Builder site and need to add a custom control to the Heading element that lets editors set a subtitle. The subtitle should render below the heading on the frontend.",
+  "expected_behavior": [
+    "Routes to wp-bricks skill based on Bricks Builder keywords.",
+    "Runs project triage to classify the repo.",
+    "Reads references/hooks-and-filters.md for the correct filter.",
+    "Uses the bricks/elements/heading/controls filter to register the custom control.",
+    "Adds frontend rendering logic using Bricks element render hooks or a child theme template.",
+    "Does not modify core Bricks files directly."
+  ],
+  "success_criteria": [
+    "Custom control appears in the Heading element's settings panel in the Bricks editor.",
+    "Subtitle value saves and persists across page reloads.",
+    "Subtitle renders on the frontend below the heading.",
+    "Implementation uses Bricks filters/actions, not core file edits."
+  ]
+}

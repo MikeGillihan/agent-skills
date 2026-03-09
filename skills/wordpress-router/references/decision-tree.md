@@ -27,6 +27,8 @@ Route by intent even if repo kind is broad (like `wp-site`):
   - Route → `wp-abilities-api`.
 - **Playground / run-blueprint / build-snapshot / @wp-playground/cli / playground.wordpress.net**
   - Route → `wp-playground`.
+- **Bricks / Bricks Builder / elements / templates / dynamic data / conditions**
+  - Route → `wp-bricks`.
 - **Blocks / block.json / registerBlockType / attributes / save serialization**
   - Route → `wp-block-development`.
 - **theme.json / Global Styles / templates/*.html / patterns/**
